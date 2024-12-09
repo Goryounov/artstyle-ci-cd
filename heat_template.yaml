@@ -1,0 +1,18 @@
+heat_template_version: 2015-04-30
+
+description: Template to deploy an OpenStack instance
+
+resources:
+  instance:
+    type: OS::Nova::Server
+    properties:
+      key_name: goryunov
+      image: ubuntu-20.04
+      flavor: m1.small
+      networks:
+        - port: { get_resource: server_port }
+
+  server_port:
+    type: OS::Neutron::Port
+    properties:
+      network_id: "17eae9b6-2168-4a07-a0d3-66d5ad2a9f0e"
