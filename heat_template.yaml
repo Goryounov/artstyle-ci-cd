@@ -2,17 +2,28 @@ heat_template_version: 2015-04-30
 
 description: Template to deploy an OpenStack instance
 
+parameters:
+  image_id:
+    type: string
+    description: ID or name of the image to use for the instance
+  flavor_id:
+    type: string
+    description: Flavor to use for the instance
+  network_id:
+    type: string
+    description: Network ID for the server port
+
 resources:
   instance:
     type: OS::Nova::Server
     properties:
       key_name: goryunov
-      image: ubuntu-20.04
-      flavor: m1.small
+      image: { get_param: image_id }
+      flavor: { get_param: flavor_id }
       networks:
         - port: { get_resource: server_port }
 
   server_port:
     type: OS::Neutron::Port
     properties:
-      network_id: "17eae9b6-2168-4a07-a0d3-66d5ad2a9f0e"
+      network_id: { get_param: network_id }
