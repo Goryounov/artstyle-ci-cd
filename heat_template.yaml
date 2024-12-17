@@ -27,3 +27,16 @@ resources:
     type: OS::Neutron::Port
     properties:
       network_id: { get_param: network_id }
+
+  volume:
+    type: OS::Cinder::Volume
+    properties:
+      size: 10
+      name: goryunov_volume
+
+  volume_attachment:
+    type: OS::Cinder::VolumeAttachment
+    properties:
+      instance_uuid: { get_resource: instance }
+      volume_id: { get_resource: volume }
+      mountpoint: /dev/vdb
