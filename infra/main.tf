@@ -15,6 +15,12 @@ provider "yandex" {
   zone = "ru-central1-a"
 }
 
+provider "openstack" {
+  auth_url   = var.openstack_auth_url
+  username   = var.openstack_username
+  password   = var.openstack_password
+}
+
 resource "openstack_compute_instance_v2" "goryunov_infra_tf" {
   name        = var.instance_name
   image_name  = var.image
