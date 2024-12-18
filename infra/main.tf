@@ -28,10 +28,6 @@ resource "openstack_compute_instance_v2" "goryunov_infra_tf" {
   flavor_name = var.flavor
   key_pair    = var.key_name
 
-  network {
-    name = var.network_name
-  }
-
   block_device {
     source_type           = "image"
     destination_type      = "volume"
