@@ -1,0 +1,62 @@
+- name: Deployment of ArtStyle application
+  hosts: all
+  become: yes
+  vars:
+    remote_dir: "/home/ubuntu/artstyle"
+    local_files:
+      - artstyle-client.tar.gz
+      - artstyle-server.tar.gz
+      - .env
+      - docker-compose.yml
+      - inventory.ini
+  tasks:
+
+    - name: Ensure the target directory exists
+      ansible.builtin.file:
+        path: "{{ remote_dir }}"
+        state: directory
+        owner: ubuntu
+        group: ubuntu
+        mode: '0755'
+
+    - name: Copy files to remote server
+      ansible.builtin.copy:
+        src: "{{ item }}"
+        dest: "{{ remote_dir }}/"
+      loop: "{{ local_files }}"
+
+    - name: Extract .gz files
+      ansible.builtin.shell:
+        cmd: gunzip -f {{ remote_dir }}/*.gz
+      args:
+        warn: false
+
+    - name: Load Docker client image
+      ansible.builtin.shell:
+        cmd: docker load < {{ remote_dir }}/artstyle-client.tar
+
+    - name: Load Docker server image
+      ansible.builtin.shell:
+        cmd: docker load < {{ remote_dir }}/artstyle-server.tar
+
+    - name: Find all .tar files in the directory
+      ansible.builtin.find:
+        paths: "{{ remote_dir }}"
+        patterns: "*.tar*"
+      register: tar_files
+
+    - name: Remove all .tar files
+      ansible.builtin.file:
+        path: "{{ item.path }}"
+        state: absent
+      with_items: "{{ tar_files.files }}"
+
+    - name: Replace API_URL in .env file
+      ansible.builtin.lineinfile:
+        path: "{{ remote_dir }}/.env"
+        regexp: '^API_URL=.*'
+        line: "API_URL=http://{{ ansible_host }}:8000"
+
+    - name: Start Docker Compose
+      ansible.builtin.shell:
+        cmd: docker-compose -f {{ remote_dir }}/docker-compose.yml up -d
