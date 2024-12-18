@@ -1,15 +1,3 @@
-variable "openstack_auth_url" {
-  description = "Openstack auth URL"
-}
-
-variable "openstack_username" {
-  description = "Openstack username"
-}
-
-variable "openstack_password" {
-  description = "Openstack password"
-}
-
 variable "instance_name" {
   description = "Name of the instance"
   default     = "goryunov_infra_tf"
