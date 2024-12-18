@@ -16,9 +16,10 @@ provider "yandex" {
 }
 
 provider "openstack" {
-  auth_url   = var.openstack_auth_url
+  auth_url    = var.openstack_auth_url
   user_name   = var.openstack_username
-  password   = var.openstack_password
+  password    = var.openstack_password
+  domain_name = var.openstack_domain_name
 }
 
 resource "openstack_compute_instance_v2" "goryunov_infra_tf" {

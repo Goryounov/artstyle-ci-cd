@@ -10,6 +10,11 @@ variable "openstack_password" {
   description = "Openstack password"
 }
 
+variable "openstack_domain_name" {
+  description = "Openstack domain name"
+  default     = "default"
+}
+
 variable "instance_name" {
   description = "Name of the instance"
   default     = "goryunov_infra_tf"
