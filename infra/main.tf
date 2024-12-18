@@ -17,7 +17,7 @@ provider "yandex" {
 
 provider "openstack" {
   auth_url   = var.openstack_auth_url
-  username   = var.openstack_username
+  user_name   = var.openstack_username
   password   = var.openstack_password
 }
 
