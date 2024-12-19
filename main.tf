@@ -32,7 +32,7 @@ resource "openstack_compute_instance_v2" "goryunov_infra_tf" {
     source_type           = "image"
     destination_type      = "volume"
     uuid                  = "253a6ce9-fd9d-4a14-bbac-097a6eb8fb10"
-    volume_size           = 5
+    volume_size           = 20
     boot_index            = 0
     delete_on_termination = true
   }
