@@ -11,7 +11,7 @@
       - inventory.ini
   tasks:
 
-    - name: Ensure the target directory exists
+    - name: Check the target directory
       ansible.builtin.file:
         path: "{{ remote_dir }}"
         state: directory
@@ -55,5 +55,5 @@
         regexp: '^API_URL=.*'
         line: "API_URL=http://{{ ansible_host }}:8000"
 
-    - name: Start Docker Compose
+    - name: Start Docker compose
       shell: docker-compose -f {{ remote_dir }}/docker-compose.yml up -d

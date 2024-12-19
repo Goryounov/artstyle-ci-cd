@@ -22,7 +22,7 @@ provider "openstack" {
   domain_name = var.openstack_domain_name
 }
 
-resource "openstack_compute_instance_v2" "goryunov_infra_tf" {
+resource "openstack_compute_instance_v2" "goryunov_infra_terraform_ansible" {
   name        = var.instance_name
   image_name  = var.image
   flavor_name = var.flavor
@@ -44,4 +44,4 @@ resource "openstack_compute_instance_v2" "goryunov_infra_tf" {
   security_groups = [var.security_group]
 }
 
-output "instance_ip" { value = openstack_compute_instance_v2.goryunov_infra_tf.access_ip_v4 }
+output "instance_ip" { value = openstack_compute_instance_v2.goryunov_infra_terraform_ansible.access_ip_v4 }

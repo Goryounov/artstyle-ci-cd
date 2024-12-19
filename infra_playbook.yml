@@ -1,9 +1,9 @@
-- name: Deploy application stack
+- name: Installing environment
   hosts: all
   become: true
 
   tasks:
-    - name: Update and upgrade apt packages
+    - name: Update packages
       apt:
         update_cache: yes
         upgrade: dist
