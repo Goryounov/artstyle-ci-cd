@@ -17,7 +17,7 @@ variable "openstack_domain_name" {
 
 variable "instance_name" {
   description = "Name of the instance"
-  default     = "goryunov_infra_tf"
+  default     = "goryunov_infra_terraform_ansible"
 }
 
 variable "key_name" {
